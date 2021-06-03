@@ -1,0 +1,86 @@
+<!-- Toolbar -->
+<div class="toolbar">
+    <span>Welcome</span>
+    <div class="spacer"></div>
+</div>
+
+<div class="content" role="main">
+
+    <!-- Highlight Card -->
+    <div class="card highlight-card card-small">
+
+        <span>{{ title }} app is running!</span>
+
+    </div>
+    <div class="spacer"></div>
+    <p style="color: red;">{{err}}</p>
+    <form #userPost="ngForm" class="form-container" (ngSubmit)="onSubmit(userPost.value)">
+        <input type="text" class="formData" name="city" ngModel placeholder="enter city">
+        <br>
+        <button type="submit" class="formBtn" name="Submit">Submit</button>
+    </form>
+    <div *ngIf="dataFetched; then showData else noData"></div>
+    <ng-template #noData>No Data Available </ng-template>
+    <ng-template #showData>
+        <div class="card-container">
+            <a class="card" rel="noopener" href="javascript:void(0)">
+
+                <span>Country : </span>
+                <p>{{fetchData.data.sys.country}}</p>
+            </a>
+            <a class="card" rel="noopener" href="javascript:void(0)">
+
+                <span>City : </span>
+                <p>{{fetchData.data.name}}</p>
+            </a>
+            <a class="card" rel="noopener" href="javascript:void(0)">
+
+                <span>Weather : </span>
+                <p>{{fetchData.data.weather[0].description}}</p>
+            </a>
+
+        </div>
+        <div class="card-container">
+            <a class="card" rel="noopener" href="javascript:void(0)">
+
+                <span>TemP :</span>
+                <p>{{(fetchData.data.main.temp - 273).toFixed(2)}} deg C</p>
+            </a>
+            <a class="card" rel="noopener" href="javascript:void(0)">
+
+                <span>Feels like :</span>
+                <p>{{(fetchData.data.main.feels_like - 273).toFixed(2)}} deg C</p>
+            </a>
+            <a class="card" rel="noopener" href="javascript:void(0)">
+
+                <span>max temp : </span>
+                <p>{{(fetchData.data.main.temp_max - 273).toFixed(2)}} deg C</p>
+            </a>
+
+        </div>
+
+
+        <div class="card-container">
+            <a class="card" rel="noopener" href="javascript:void(0)">
+
+                <span>min temp : </span>
+                <p>{{(fetchData.data.main.temp_min - 273).toFixed(2)}} deg C</p>
+            </a>
+            <a class="card" rel="noopener" href="javascript:void(0)">
+
+                <span>Humidity : </span>
+                <p>{{fetchData.data.main.humidity}}%</p>
+            </a>
+            <a class="card" rel="noopener" href="javascript:void(0)">
+
+                <span>Pressure : </span>
+                <p>{{fetchData.data.main.pressure}}</p>
+            </a>
+
+        </div>
+    </ng-template>
+</div>
+
+
+
+<router-outlet></router-outlet>
