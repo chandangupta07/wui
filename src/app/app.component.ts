@@ -7,7 +7,7 @@ import { HttpClient } from "@angular/common/http";
 })
 export class AppComponent {
     title = 'my-app';
-    fetchData: Object = {};
+    fetchData: any;
     err: String = "";
     dataFetched: Boolean = false
     constructor(private http: HttpClient) {
@@ -17,13 +17,13 @@ export class AppComponent {
     onSubmit(data) {
         this.http.post("http://localhost:8183/search", data)
             .subscribe((result) => {
-                if (typeof result.err !== 'undefined') {
+                this.fetchData = result;
+                if (typeof this.fetchData.err !== 'undefined') {
                     this.dataFetched = false;
-                    this.err = result.err;
+                    this.err = this.fetchData.err;
                 } else {
                     this.dataFetched = true;
                     this.err = "";
-                    this.fetchData = result;
                 }
             })
     }
